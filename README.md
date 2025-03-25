@@ -2,7 +2,17 @@
 
 ## Description
 
-A brief overview of what this project does and its purpose.
+**Project Name:** Events Display Application for SLE Church
+
+**Objective:** We are building an easy-to-use web application for church admins to manage events in one central place. This tool will allow admins to create, update, delete, and categorize events effortlessly. The events will then be automatically displayed on the church’s website, ensuring the latest information is always available.
+
+**Problem Solved:** Currently, church admins manually update events, leading to errors and duplicated effort when managing the events page. This system will centralize event management, reducing manual work and ensuring accuracy.
+
+## Identify Stakeholders
+
+**Users:** Church admins who manage events.
+
+**Developers:** The development team building and maintaining the system.
 
 ## Features
 

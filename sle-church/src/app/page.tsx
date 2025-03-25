@@ -1,12 +1,21 @@
 "use client";
 
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
+
+// Components
+import EventCard from "@/components/EventCard";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 export default function Home() {
   type Event = {
     id: number;
-    title: string;
+    eventName: string;
+    eventDate: Date;
+    startTime: string;
+    endTime: string;
+    description: string;
+    location: string;
+    tags: string[];
   };
 
   const [events, setEvents] = useState<Event[]>([]);
@@ -30,24 +39,41 @@ export default function Home() {
 
   if (loading) return <p>Loading events...</p>;
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8  items-center">
-        <h1 className="text-center font-bold text-3xl">What&apos;s On</h1>
-        <Carousel>
-          <CarouselContent>
-            {events.map((event) => (
-              <CarouselItem key={event.id} className="basis-1/3">
-                <div className="p-4 border rounded-lg shadow-md">
-                  <h3 className="text-lg font-semibold">{event.title}</h3>
-                  <p>more</p>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </main>
-    </div>
+    <main className="flex flex-col w-full items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
+      {/* Heading */}
+      <div className="flex flex-col w-fit items-center my-20">
+        <h1 className="text-5xl font-bold text-[#3b3b3b] xl:text-7xl md:text-5xl sm:text-4xl xs:text-4xl xxs:text-5xl">
+          What&apos;s On
+        </h1>
+        <div className="border-2 my-5 border-primary w-1/2"></div>
+      </div>
+
+      {/* Our Picks */}
+      {/* <div className="flex flex-row w-full justify-between items-center">
+        <div>
+          <h2>Our Picks</h2>
+        </div>
+        <div></div>
+      </div> */}
+
+      <Carousel>
+        <CarouselContent>
+          {events.map((event) => (
+            <CarouselItem key={event.id} className="basis-1/3">
+              <EventCard
+                eventName={event.eventName}
+                startTime={event.startTime}
+                endTime={event.endTime}
+                eventDate={event.eventDate}
+                description={event.description}
+                location={event.location}
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+    </main>
   );
 }

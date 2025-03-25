@@ -3,15 +3,23 @@ import { prisma } from "../../../../../../lib/prismaClient";
 
 export async function GET() {
   try {
-    // Fetch budget
+    // Fetch events
     const events = await prisma.event.findMany({
       select: {
         id: true,
-        title: true,
+        eventName: true,
+        eventDate: true,
+        startTime: true,
+        endTime: true,
+        description: true,
+        location: true,
+        tags: true,
       },
     });
 
-    // Return categories data
+    console.log(events);
+
+    // Return events data
     return NextResponse.json(events, { status: 200 });
   } catch (error) {
     console.error(error);
