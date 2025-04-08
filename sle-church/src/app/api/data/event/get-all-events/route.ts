@@ -2,24 +2,15 @@ import { NextResponse } from "next/server";
 import { prisma } from "../../../../../../lib/prismaClient";
 
 /**
- * API Route - GET /api/data/event/get-event
+ * API Route - GET /api/data/event/get-all-events
  *
- * Fetches a group of all events based on active tab, from the database.
+ * Fetches a list of all events from the database.
  *
  * @param {Request} request - The incoming HTTP request object.
  * @returns {Promise<NextResponse>} A JSON response containing event data or an error message.
  */
 export async function GET(request: Request) {
   try {
-    // Extract query parameters from the URL
-    const url = new URL(request.url);
-    const activeTab = url.searchParams.get("tab");
-
-    // Must have a tab parameter
-    if (!activeTab) {
-      return NextResponse.json({ error: "Tab parameter is required" }, { status: 400 });
-    }
-
     // Query the database for events
     const events = await prisma.event.findMany({
       select: {
