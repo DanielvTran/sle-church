@@ -8,14 +8,30 @@ datasource db {
 }
 
 model Event {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
+  id          Int        @id @default(autoincrement())
+  createdAt   DateTime   @default(now())
   description String
   endTime     String
   location    String
   startTime   String
-  updatedAt   DateTime
+  updatedAt   DateTime   @updatedAt
   eventDate   DateTime
   eventName   String
-  tags        Json
+  eventTags   EventTag[]
+}
+
+model Tag {
+  id        Int        @id @default(autoincrement())
+  value     String     @unique
+  name      String     @unique
+  eventTags EventTag[]
+}
+
+model EventTag {
+  eventId Int
+  tagId   Int
+  event   Event @relation(fields: [eventId], references: [id])
+  tag     Tag   @relation(fields: [tagId], references: [id])
+
+  @@id([eventId, tagId])
 }

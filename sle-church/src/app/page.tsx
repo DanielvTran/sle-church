@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 // Components
 import EventCard from "@/components/EventCard";
@@ -26,42 +26,27 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState("ourpicks");
   const [loading, setLoading] = useState(true);
 
-  // On mount fetch events and filter to get unique tags for the tabs
   useEffect(() => {
     async function fetchAvailableTabs() {
       try {
-        // Fetch all events from the API
-        const response = await fetch("/api/data/event/get-all-events");
-        const events: Event[] = await response.json();
+        // Fetch all tabs from the API
+        const response = await fetch("/api/data/tag/get-tags");
+        const tags: EventTabsTrigger[] = await response.json();
 
         // Notify if no events are found
-        if (!events) {
-          console.error("No events found");
+        if (!tags) {
+          console.error("No tag found");
           toast({
-            description: "No events found.",
+            description: "No tags found.",
           });
 
           return;
         }
 
-        // Create a Set to store unique tags
-        const uniqueTags = new Set<string>();
-        events.forEach((event) => {
-          // Ensure tags are parsed from JSON string to array if needed
-          const tags = JSON.parse(event.tags);
+        // Make tags available to the tabs for navigation and render
+        setAvailableTabs(tags);
 
-          // Add each tag to the Set, same tags will be ignored
-          tags.forEach((tag: string) => uniqueTags.add(tag));
-        });
-
-        // Using available tags filter event types and set available tabs
-        const filteredEventTypes = eventTypes.filter((type) => uniqueTags.has(type.name));
-        setAvailableTabs(filteredEventTypes);
-
-        // Set first available tab as active if you want:
-        if (filteredEventTypes.length > 0) {
-          setActiveTab(filteredEventTypes[0].value);
-        }
+        console.log("Tags: ", tags);
       } catch (error) {
         console.error("Error fetching available event types:", error);
       }
@@ -70,23 +55,67 @@ export default function Home() {
     fetchAvailableTabs();
   }, []);
 
-  useEffect(() => {
-    const fetchSingleGroupOfEvents = async () => {
-      try {
-        const response = await fetch(`/api/data/event/get-event?tab=${activeTab}`);
-        const data = await response.json();
-        setEvents(data);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // On mount fetch events and filter to get unique tags for the tabs
+  // useEffect(() => {
+  //   async function fetchAvailableTabs() {
+  //     try {
+  //       // Fetch all events from the API
+  //       const response = await fetch("/api/data/event/get-all-events");
+  //       const events: Event[] = await response.json();
 
-    fetchSingleGroupOfEvents();
-  }, [activeTab]);
+  //       // Notify if no events are found
+  //       if (!events) {
+  //         console.error("No events found");
+  //         toast({
+  //           description: "No events found.",
+  //         });
 
-  if (loading) return <p>Loading events...</p>;
+  //         return;
+  //       }
+
+  //       // Create a Set to store unique tags
+  //       const uniqueTags = new Set<string>();
+  //       events.forEach((event) => {
+  //         // Ensure tags are parsed from JSON string to array if needed
+  //         const tags = JSON.parse(event.tags);
+
+  //         // Add each tag to the Set, same tags will be ignored
+  //         tags.forEach((tag: string) => uniqueTags.add(tag));
+  //       });
+
+  //       // Using available tags filter event types and set available tabs
+  //       const filteredEventTypes = eventTypes.filter((type) => uniqueTags.has(type.name));
+  //       setAvailableTabs(filteredEventTypes);
+
+  //       // Set first available tab as active if you want:
+  //       if (filteredEventTypes.length > 0) {
+  //         setActiveTab(filteredEventTypes[0].value);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching available event types:", error);
+  //     }
+  //   }
+
+  //   fetchAvailableTabs();
+  // }, []);
+
+  // useEffect(() => {
+  //   const fetchSingleGroupOfEvents = async () => {
+  //     try {
+  //       const response = await fetch(`/api/data/event/get-event?tab=${activeTab}`);
+  //       const data = await response.json();
+  //       setEvents(data);
+  //     } catch (error) {
+  //       console.error("Error fetching events:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchSingleGroupOfEvents();
+  // }, [activeTab]);
+
+  // if (loading) return <p>Loading events...</p>;
   return (
     <main className="flex flex-col w-3/4 items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
       {/* Heading */}
