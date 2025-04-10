@@ -46,7 +46,10 @@ export default function Home() {
         // Make tags available to the tabs for navigation and render
         setAvailableTabs(tags);
 
-        console.log("Tags: ", tags);
+        // Set the default active tab to the first available tab
+        if (tags.length > 0) {
+          setActiveTab(tags[0].value);
+        }
       } catch (error) {
         console.error("Error fetching available event types:", error);
       }
@@ -55,65 +58,23 @@ export default function Home() {
     fetchAvailableTabs();
   }, []);
 
-  // On mount fetch events and filter to get unique tags for the tabs
-  // useEffect(() => {
-  //   async function fetchAvailableTabs() {
-  //     try {
-  //       // Fetch all events from the API
-  //       const response = await fetch("/api/data/event/get-all-events");
-  //       const events: Event[] = await response.json();
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch(`/api/data/event/get-events?active_tab=${activeTab}`);
+        const data = await response.json();
 
-  //       // Notify if no events are found
-  //       if (!events) {
-  //         console.error("No events found");
-  //         toast({
-  //           description: "No events found.",
-  //         });
+        console.log("Fetched events:", data);
+        setEvents(data);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  //         return;
-  //       }
-
-  //       // Create a Set to store unique tags
-  //       const uniqueTags = new Set<string>();
-  //       events.forEach((event) => {
-  //         // Ensure tags are parsed from JSON string to array if needed
-  //         const tags = JSON.parse(event.tags);
-
-  //         // Add each tag to the Set, same tags will be ignored
-  //         tags.forEach((tag: string) => uniqueTags.add(tag));
-  //       });
-
-  //       // Using available tags filter event types and set available tabs
-  //       const filteredEventTypes = eventTypes.filter((type) => uniqueTags.has(type.name));
-  //       setAvailableTabs(filteredEventTypes);
-
-  //       // Set first available tab as active if you want:
-  //       if (filteredEventTypes.length > 0) {
-  //         setActiveTab(filteredEventTypes[0].value);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching available event types:", error);
-  //     }
-  //   }
-
-  //   fetchAvailableTabs();
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchSingleGroupOfEvents = async () => {
-  //     try {
-  //       const response = await fetch(`/api/data/event/get-event?tab=${activeTab}`);
-  //       const data = await response.json();
-  //       setEvents(data);
-  //     } catch (error) {
-  //       console.error("Error fetching events:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchSingleGroupOfEvents();
-  // }, [activeTab]);
+    fetchEvents();
+  }, [activeTab]);
 
   // if (loading) return <p>Loading events...</p>;
   return (
