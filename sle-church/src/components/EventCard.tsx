@@ -32,14 +32,15 @@ const EventCard = ({
 
   return (
     <div className="border rounded-sm shadow-md bg-white">
-      <Image src={image} alt="testing" width={300} />
+      <Image src={image} alt="testing" />
+
       <div className="eventContent flex flex-col p-5 gap-2">
-        <p className="text-sm text-[#f63a21] font-bold">
+        <p className="EventDate text-sm text-[#f63a21] font-bold 3xl:text-md">
           {formattedDate}, {formattedStartTime} to {formattedEndTime}
         </p>
-        <h3 className="text-lg font-semibold text-gray-900">{eventName}</h3>
-        <p className="text-sm text-gray-600">{description}</p>
-        <p className="text-sm text-gray-600">{location}</p>
+        <h3 className="EventName text-lg font-semibold text-gray-900 3xl:text-xl">{eventName}</h3>
+        <p className="EventDescription text-sm text-gray-600 3xl:text-lg">{description}</p>
+        <p className="EventLocation text-sm text-gray-600 3xl:text-lg">{location}</p>
       </div>
     </div>
   );

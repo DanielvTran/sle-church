@@ -77,24 +77,22 @@ export default function Home() {
   return (
     <main className="flex flex-col w-3/4 items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
       {/* Heading */}
-      <div className="flex flex-col w-fit items-center my-20">
-        <h1 className="text-5xl font-bold text-[#3b3b3b] xl:text-7xl md:text-5xl sm:text-4xl xs:text-4xl xxs:text-4xl">
-          What&apos;s On
-        </h1>
+      <div className="flex flex-col w-fit items-center 3xl:my-20 2xl:my-14">
+        <h1 className="text-5xl font-bold text-[#3b3b3b] 3xl:text-6xl 2xl:text-5xl">What&apos;s On</h1>
         <div className="border-2 mt-5 border-primary w-1/2"></div>
       </div>
 
       {/* 
           Tabs Navigation Buttons:
           Dynamically create a <TabsTrigger> component for each available tab for the navigation bar.
-        */}
+      */}
       <Tabs value={activeTab ?? ""} onValueChange={setActiveTab} className="w-full">
         <TabsList className="flex justify-center items-center gap-20 bg-white w-full">
           {availableTabs.map((types) => (
             <TabsTrigger
               key={types.value}
               value={types.value}
-              className="data-[state=active]:bg-white data-[state=active]:text-[#A3D43D] data-[state=active]:shadow-none rounded-none data-[state=active]:border-t-2 data-[state=active]:border-[#A3D43D] transition 3xl:text-2xl 3xl:py-2 px-4"
+              className="data-[state=active]:bg-white data-[state=active]:text-[#A3D43D] data-[state=active]:shadow-none rounded-none data-[state=active]:border-t-2 data-[state=active]:border-[#A3D43D] transition 3xl:text-2xl 3xl:py-2 2xl:text-lg 2xl:py-2 px-4 "
             >
               {types.name}
             </TabsTrigger>

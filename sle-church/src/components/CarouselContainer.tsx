@@ -13,15 +13,15 @@ import { Event } from "@/lib/types";
 const CarouselContainer = ({ events, activeTab }: { events: Event[]; activeTab: string }) => {
   return (
     <Carousel>
-      <div className="flex flex-col items-center w-full">
+      <div className="CarouselContainer flex flex-col items-center w-full ">
         {/* Our Picks Heading */}
-        <p className="OurPicksHeading text-center text-[#3b3b3b] font-bold text-xs 3xl:my-16 3xl:text-lg 3xl:w-3/4">
+        <p className="OurPicksHeading text-center text-[#3b3b3b] font-bold text-xs 3xl:my-16 3xl:text-lg 3xl:w-3/4 2xl:my-8 2xl:text-lg 2xl:w-3/4">
           {tabDescriptions[activeTab]?.description}
         </p>
 
-        <CarouselContent>
+        <CarouselContent className="CarouselContent flex gap-4 w-full ">
           {events.map((event) => (
-            <CarouselItem key={event.id} className="basis-1/3">
+            <CarouselItem key={event.id} className="flex-1 min-w-[250px] max-w-[350px]">
               <EventCard
                 eventName={event.eventName}
                 startTime={event.startTime}
@@ -35,9 +35,10 @@ const CarouselContainer = ({ events, activeTab }: { events: Event[]; activeTab: 
         </CarouselContent>
       </div>
 
+      {/* TODO: Need to figure out if we want the buttons or its a scroll by grabbing and sliding */}
       {/* Carousel Navigation */}
-      <CarouselPrevious />
-      <CarouselNext />
+      {/* <CarouselPrevious /> */}
+      {/* <CarouselNext /> */}
     </Carousel>
   );
 };
