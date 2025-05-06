@@ -1,5 +1,5 @@
 // Shadcn UI
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 // Components
 import EventCard from "@/components/EventCard";

@@ -52,7 +52,7 @@ export default function Home() {
     }
 
     fetchAvailableTabs();
-  }, []);
+  }, [toast]);
 
   useEffect(() => {
     if (!activeTab) return; // Don't fetch if activeTab is still null
@@ -104,7 +104,7 @@ export default function Home() {
           Dynamically create a <TabsContent> component for each available tab.
         */}
         {availableTabs.map((types) => (
-          <TabsContent value={types.value}>
+          <TabsContent key={types.value} value={types.value}>
             <CarouselContainer events={events} activeTab={activeTab} />
           </TabsContent>
         ))}

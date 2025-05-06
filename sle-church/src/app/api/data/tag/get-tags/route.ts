@@ -6,10 +6,9 @@ import { prisma } from "../../../../../../lib/prismaClient";
  *
  * Fetches a list of unique tags attached to at least one event.
  *
- * @param {Request} request - The incoming HTTP request object.
  * @returns {Promise<NextResponse>} A JSON response containing unique tag data or an error message.
  */
-export async function GET(request: Request) {
+export async function GET() {
   try {
     // Fetch only tags that are linked to at least one event
     const tags = await prisma.tag.findMany({
