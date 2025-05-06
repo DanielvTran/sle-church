@@ -2,42 +2,63 @@
 
 ## Description
 
-**Project Name:** Events Display Application for SLE Church
+**Project Name:** Events Display Application for SLE Church (Frontend)
 
-**Objective:** We are building an easy-to-use web application for church admins to manage events in one central place. This tool will allow admins to create, update, delete, and categorize events effortlessly. The events will then be automatically displayed on the church’s website, ensuring the latest information is always available.
+**Objective:** To efficiently fetch events from MySQL server to format and siaply them neatly on the frontend, for all responsive screens.
 
-**Problem Solved:** Currently, church admins manually update events, leading to errors and duplicated effort when managing the events page. This system will centralize event management, reducing manual work and ensuring accuracy.
-
-## Identify Stakeholders
-
-**Users:** Church admins who manage events.
-
-**Developers:** The development team building and maintaining the system.
-
-## Features
-
-- Feature 1: Brief description
-- Feature 2: Brief description
-- Feature 3: Brief description
+**Problem Solved:** Currently, church events being displayed are outdated and not responsive on mobile.
 
 ## Tech Stack
 
-- **Frontend**: Nextjs
-- **Backend**: [Framework/Library] (e.g., Node.js, Express)
-- **Database**: [Database] (e.g., MySQL, PostgreSQL, MongoDB)
-- **Deployment**: [Platform] (e.g., Vercel, AWS, DigitalOcean)
+- **Frontend**: [Nextjs](https://nextjs.org/docs)
+- **Backend**: [API](https://nextjs.org/docs/app/building-your-application/routing/route-handlers)
+- **Database**: [MySQL](https://dev.mysql.com/doc/)
+- **Deployment**: [Vercel](https://vercel.com/docs)
 
 ## Installation & Setup
 
 ### Prerequisites
 
-- Install [Node.js](https://nodejs.org/) (if applicable)
-- Install [Database] (if applicable)
-- Other dependencies or tools needed
+Before starting, ensure you have the following installed:
 
-### Clone the Repository
+- **Docker**: [Install Docker](https://docs.docker.com/get-started/get-docker/)
+- **Node.js**: [Install Node.js](https://nodejs.org/)
+
+## Getting Started
+
+### Step 1: Clone the Repository
+
+Clone the repository using the following command:
 
 ```bash
-git clone https://github.com/yourusername/project-name.git
-cd project-name
+git clone https://github.com/DanielvTran/sle-church.git
+cd sle-church
 ```
+
+### Step 2: Build Docker Containers
+
+Run the following command to build and start the services defined in docker-compose.yml:
+
+```bash
+docker-compose up --build
+```
+
+This will:
+
+- Build the Docker images.
+- Start the application services (Nextjs, Prisma).
+- Expose ports as defined in docker-compose.yml (localhost:3000).
+
+### Step 3: Access the Application
+
+Once the containers are up and running, you can access the application via:
+
+```bash
+http://localhost:3000
+```
+
+### Step 4: Configure Environment Variables
+
+Put .env file at root of project folder `sle-church`.
+
+Contact `danieltran.softwaredev@gmail.com` for the .env content
